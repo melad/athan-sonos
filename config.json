@@ -1,0 +1,25 @@
+{
+  "latitude": 48.718523,
+  "longitude": 9.309309,
+  "elevation": 356,
+  "calculation_method": "MWL",
+  "asr_convention": "Shafii",
+  "time_corrections": {
+    "fajr": 1, "sunrise": 1, "zuhr": 1, "asr": 1, "maghrib": 1, "isha": 1
+  },
+  "pi_ip": "192.168.178.39",
+  "mqtt_broker": "tcp://home:1883",
+  "backup_ips": ["192.168.178.50", "192.168.178.51"],
+
+  "events": [
+    { "name": "Pre-Fajr Athan",  "base": "fajr",    "offset": -30, "folder": "pre_fajr" ,  "volume": 20},
+    { "name": "Fajr Athan",      "base": "fajr",    "offset": 0,   "folder": "fajr" , "volume": 25},
+    { "name": "Pre-Sunrise",     "base": "sunrise", "offset": -30, "folder": "fajr" , "volume": 30 },
+    { "name": "Morning Adhkar",  "base": "sunrise", "offset": -10, "folder": "morning_adhkar", "volume": 15 },
+    { "name": "Zuhr Athan",      "base": "zuhr",    "offset": 0,   "folder": "" },
+    { "name": "Asr Athan",       "base": "asr",     "offset": 0,   "folder": "" },
+    { "name": "Maghrib Athan",   "base": "maghrib", "offset": 0,   "folder": "" },
+    { "name": "Evening Adhkar",  "base": "maghrib", "offset": -15,  "folder": "evening_adhkar" },
+    { "name": "Isha Athan",      "base": "isha",    "offset": 0,   "folder": "" }
+  ]
+}
