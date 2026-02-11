@@ -15,10 +15,10 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.21' # Oder deine bevorzugte Version
+        go-version: '1.21'
 
     - name: Install dependencies
-        run: go mod tidy
+      run: go mod tidy
 
     - name: Build
       run: go build -v -o athan-app
