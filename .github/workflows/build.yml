@@ -1,24 +1,51 @@
-name: Go Build Check
+name: Release Multi-Platform
 
 on:
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+    tags:
+      - 'v*' # Startet den Build, wenn du einen Tag pushst (z.B. v1.0.0)
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+            file: athan-linux-amd64
+          - goos: linux
+            goarch: arm
+            goarm: 7
+            file: athan-raspberry-pi
+          - goos: windows
+            goarch: amd64
+            file: athan-windows-amd64.exe
+          - goos: darwin
+            goarch: amd64
+            file: athan-mac-intel
+          - goos: darwin
+            goarch: arm64
+            file: athan-mac-m1-m2
+
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.21'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
 
-    - name: Install dependencies
-      run: go mod tidy
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          GOARM: ${{ matrix.goarm }}
+        run: go build -v -o ${{ matrix.file }}
 
-    - name: Build
-      run: go build -v -o athan-app
+      - name: Upload Artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ matrix.file }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
