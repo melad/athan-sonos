@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🕌 Athan Automation System
 
 An automated Islamic prayer time notification system that plays audio files through Sonos speakers. The system calculates prayer times based on geographic coordinates and can manage both time-based and prayer-time-based events with individual audio folders and volume levels.
@@ -919,3 +920,7 @@ For issues or questions:
 ---
 
 **May this system help you remember and observe your prayers on time. Allahu Akbar! 🕋**
+=======
+# athan-sonos
+Automatic Athan / audio player for Sonos speakers. Runs in the background.
+>>>>>>> origin/main
