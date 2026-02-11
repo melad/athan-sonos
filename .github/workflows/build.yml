@@ -3,12 +3,16 @@ name: Release Multi-Platform
 on:
   push:
     tags:
-      - 'v*' # Startet den Build, wenn du einen Tag pushst (z.B. v1.0.0)
+      - 'v*'
+
+permissions:
+  contents: write # WICHTIG: Erlaubt das Erstellen von Releases
 
 jobs:
   release:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false # Verhindert, dass alle anderen Jobs abbrechen, wenn einer mal hakt
       matrix:
         include:
           - goos: linux
@@ -35,6 +39,10 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '1.21'
+          cache: true # Beschleunigt den Build bei Wiederholung
+
+      - name: Install dependencies
+        run: go mod tidy
 
       - name: Build
         env:
